@@ -27,7 +27,7 @@ object) of Riak stats, in the following format:
 
 These can be useful for:
 
-* Displaying Help text for Riak stats in the [Riak Explorer GUI]() project
+* Displaying Help text for Riak stats in the [Riak Explorer GUI](https://github.com/basho-labs/riak-explorer-gui) project
 * Generating Basho Docs help text for stats
 * Auto-generating configs for third-party Riak Monitoring plugins
     (such as [newrelic_riak_plugin](https://github.com/basho/newrelic_riak_plugin)).
