@@ -5,7 +5,7 @@ help tips and graphing usage).
 ## Riak Stats Help
 
 The **[riak_status.json](riak_status.json)** file contains a hashmap (JSON
-object) of Riak stats, in the following format:
+object) of some 400-plus Riak stats, in the following format:
 
 ```json
 {
@@ -32,7 +32,8 @@ These can be useful for:
 * Auto-generating configs for third-party Riak Monitoring plugins
     (such as [newrelic_riak_plugin](https://github.com/basho/newrelic_riak_plugin)).
 
-Note: This currently does not include MDC Replication stats.
+Note: This currently does not include MDC Replication stats (see
+[issue #3](https://github.com/basho-labs/riak-help-json/issues/3)).
 
 Each statistic has the following attributes.
 
@@ -89,18 +90,19 @@ Also, they're useful for filtering the aggregation and storage of stats only
 to subsystems that are turned on for the cluster. So, if Search is not enabled
 on the cluster, it's safe to not aggregate stats with `concern == 'search'`.
 
-Curretly used `concern` values:
+Currently used `concern` values:
 
-* `config`
-* `core`
-* `crdt`
-* `kv`
-* `map/reduce`
-* `resources`
-* `search`
-* `secondary_index`
-* `strong_consistency`
-* `write_once`
+* `config` - Versions and Riak Config related stats
+* `core` - Riak Core related stats (ring rebalancing, transfers, gossip
+    operations, active connections, other misc stats)
+* `crdt` - Riak Data Type related stats
+* `kv` - Plain Riak Key/Value operation stats
+* `map/reduce` - Related to Riak Pipe and Map/Reduce operations
+* `resources` - Disk usage, Erlang VM system resources usage
+* `search` - Riak [Search](http://docs.basho.com/riak/latest/dev/using/search/) related stats
+* `secondary_index` - Secondary Index stats (LevelDB and Memory backends only)
+* `strong_consistency` - Riak Strong Consistency related stats
+* `write_once` - Write-optimized type stats introduced in Riak 2.1
 
 #### `description`
 
@@ -109,7 +111,8 @@ or tooltips for graphs.
 
 If a description is empty (`description == ""`), it means the stat is currently
 undocumented in the Basho Docs -- these should be filled in asap (see
-[issue #1](https://github.com/basho-labs/riak-help-json/issues/1)).
+[issue #1](https://github.com/basho-labs/riak-help-json/issues/1) and
+[basho_docs/#1884](https://github.com/basho/basho_docs/issues/1884)).
 
 Note: Some `category == 'versions'` stats link to the relevant libraries in
 Markdown format -- this should probably be changed to straight HTML.
@@ -204,3 +207,29 @@ like `converge_delay_mean` are in `milliseconds`.
 Units with value `n/a` generally means that these are not for graphing, such as
 library versions. Units with value `?` means that these are undocumented / unclear,
 and should be fixed.
+
+### Riak Stats code snippets
+
+Python script to output un-documented stats (that aren't library versions):
+
+```python
+# undocumented_stats.py
+import json
+
+with open('riak_status.json') as data_file:
+    stats = json.load(data_file)
+
+for key in stats:
+    if stats[key]["description"] == '' and stats[key]["category"] != "versions":
+        print key
+```
+
+You can generate a sorted list of stats with empty descriptions, and use `grep`
+against a local `basho_docs` repo to see if they've been documented there.
+(Assumes that the `basho_docs` repo is in the parent directory
+containing the `riak-help-json` repo -- that is, one level up.)
+
+```bash
+python undocumented_stats.py | sort  > undocumented.txt
+grep -rnf undocumented.txt ../basho_docs/ --exclude ../basho_docs/.git/* --include ../basho_docs/*/*.md
+```
