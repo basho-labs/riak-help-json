@@ -25,6 +25,13 @@ object) of Riak stats, in the following format:
 }
 ```
 
+These can be useful for:
+
+* Displaying Help text for Riak stats in the [Riak Explorer GUI]() project
+* Generating Basho Docs help text for stats
+* Auto-generating configs for third-party Riak Monitoring plugins
+    (such as [newrelic_riak_plugin](https://github.com/basho/newrelic_riak_plugin)).
+
 Note: This currently does not include MDC Replication stats.
 
 Each statistic has the following attributes.
@@ -101,7 +108,8 @@ Description / explanation for the stat, meant to be displayed as help text
 or tooltips for graphs.
 
 If a description is empty (`description == ""`), it means the stat is currently
-undocumented in the Basho Docs -- these should be filled in asap.
+undocumented in the Basho Docs -- these should be filled in asap (see
+[issue #1](https://github.com/basho-labs/riak-help-json/issues/1)).
 
 Note: Some `category == 'versions'` stats link to the relevant libraries in
 Markdown format -- this should probably be changed to straight HTML.
