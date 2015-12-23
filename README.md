@@ -29,8 +29,8 @@ Note: This currently does not include MDC Replication stats.
 
 Each statistic has the following attributes.
 
-#### Key / id
-The stats are keyed by "stat id" -- for example, `node_put_fsm_time_median`.
+#### `id`
+The stats are keyed by "stat id" -- for example, `node_put_fsm_time_median` above.
 
 #### `category`
 
@@ -94,6 +94,17 @@ Curretly used `concern` values:
 * `secondary_index`
 * `strong_consistency`
 * `write_once`
+
+#### `description`
+
+Description / explanation for the stat, meant to be displayed as help text
+or tooltips for graphs.
+
+If a description is empty (`description == ""`), it means the stat is currently
+undocumented in the Basho Docs -- these should be filled in asap.
+
+Note: Some `category == 'versions'` stats link to the relevant libraries in
+Markdown format -- this should probably be changed to straight HTML.
 
 #### `example`
 
