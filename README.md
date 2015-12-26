@@ -2,6 +2,11 @@
 JSON files describing riak stats, config settings and bucket properties (for
 help tips and graphing usage).
 
+## Contents
+
+1. [Riak Stats Help](#riak-stats-help)
+2. [Bucket Properties Help](#bucket-properties-help)
+
 ## Riak Stats Help
 
 The **[riak_status.json](riak_status.json)** file contains a hashmap (JSON
@@ -233,3 +238,51 @@ containing the `riak-help-json` repo -- that is, one level up.)
 python undocumented_stats.py | sort  > undocumented.txt
 grep -rnf undocumented.txt ../basho_docs/ --exclude ../basho_docs/.git/* --include ../basho_docs/*/*.md
 ```
+
+## Bucket Properties Help
+
+The **[bucket_props.json](bucket_props.json)** file contains a hashmap (JSON
+object) of bucket and bucket type properties, in the following format:
+
+```json
+{
+    "active": {
+        "default": true,
+        "description": "Has this bucket type been activated?",
+        "editable": false,
+        "json_schema_type": "boolean",
+        "name": "Activated"
+    },
+}
+```
+
+Each Bucket or Bucket Type property has the following attributes.
+
+#### `default`
+The default value for this property, used for all newly-created bucket types.
+Note: a default of `"*"` just means that this property is absent by default.
+For example, the `search_index` or `datatype` properties are not present in a
+bucket type's properties, unless explicitly set.
+
+#### `description`
+A more detailed helptext description for the property. If the property has been
+deprecated, the description starts with the string `(Deprecated)`.
+
+#### `editable`
+Can this property be edited via a Edit Bucket Type Props call? Some properties
+can only be set when *creating* a bucket type, such as `datatype`, `consistent`,
+`write_once` or `name`. Others cannot be changed at all, such as the `claimant`
+property, which is there only for informational purposes, or the `chash_keyfun`
+property, which has been deprecated.
+
+#### `json_schema_type`
+Specifies the property's
+[JSON Schema primitive type](http://json-schema.org/latest/json-schema-core.html#anchor8).
+(`string`, `number`, `boolean`, `array`, `object`). In case a property accepts
+several different value types, the types are separated by a `|` character.
+For example, the various Quorum properties have a schema type of `integer|string`,
+because they can contain either integer values, or symbolic quorum string values
+such as `all`, `one` or `quorum`.
+
+#### `name`
+Human-readable name for the property.
