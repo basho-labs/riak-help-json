@@ -6,6 +6,7 @@ help tips and graphing usage).
 
 1. [Riak Stats Help](#riak-stats-help)
 2. [Bucket Properties Help](#bucket-properties-help)
+2. [Riak Config Help](#riak-config-help)
 
 ## Riak Stats Help
 
@@ -312,3 +313,40 @@ For example:
     },
 }
 ```
+
+## Riak Config Help
+The **[riak_config.json](riak_config.json)** file contains a hashmap (JSON
+object) of Riak Effective Config properties (the results of
+`riak config effective`, for example), in the following format:
+
+```json
+{
+    "anti_entropy": {
+        "default": "active",
+        "description": "How Riak will repair out-of-sync keys. Some features require\nthis to be set to 'active', including search.\n* active: out-of-sync keys will be repaired in the background\n* passive: out-of-sync keys are only repaired on read\n* active-debug: like active, but outputs verbose debugging\ninformation",
+        "example": "passive",
+        "internal_key": "riak_kv.anti_entropy",
+        "valid": ["active", "passive", "active-debug"]
+    },
+}
+```
+
+Each Riak Config property has the following attributes.
+
+#### `default`
+Default value for that property.
+
+#### `description`
+The property description, taken from the `riak.conf` Cuttlefish schema.
+
+#### `example`
+Example value.
+
+#### `internal_key`
+The internal Erlang environment config variable name for this property.
+This is what you would look for in the Riak source code.
+It also helps to identify this key in legacy `app.config` files.
+
+#### `valid`
+Valid values for the property to have. This is either a text description, or
+an array of acceptable values.
