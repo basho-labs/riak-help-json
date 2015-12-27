@@ -286,3 +286,29 @@ such as `all`, `one` or `quorum`.
 
 #### `name`
 Human-readable name for the property.
+
+#### `valid_options`
+A few properties (namely, `repl` and `datatype`) will have an additional
+attribute that lists the valid values that this attribute can take. These are
+meant for display as pulldown menus or radio buttons, for a Riak-related UI
+such as [Explorer](https://github.com/basho-labs/riak-explorer-gui).
+
+For example:
+
+```json
+{
+    "repl": {
+        "default": "*",
+        "description": "Has Multi Data Center Replication been enabled for this bucket?",
+        "editable": true,
+        "json_schema_type": "boolean|string",
+        "name": "Per-Bucket MDC Replication",
+        "valid_options": [
+            [true, "Both Realtime and Fullsync"],
+            [false, "Not replicated"],
+            ["fullsync", "Fullsync Only"],
+            ["realtime", "Realtime Only"]
+        ]
+    },
+}
+```

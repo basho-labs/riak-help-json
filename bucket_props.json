@@ -53,10 +53,15 @@
   },
   "datatype": {
     "default": "*",
-    "description": "Has this bucket been created to store Riak Data Types (CRDTs)? Valid options: 'map', 'set', 'counter'",
+    "description": "Has this bucket been created to store Riak Data Types (CRDTs)?",
     "editable": false,
     "json_schema_type": "string",
-    "name": "Data Type (CRDT)"
+    "name": "Data Type (CRDT)",
+    "valid_options": [
+      ["counter", "Counter"],
+      ["map", "Map"],
+      ["set", "Set"]
+    ]
   },
   "dvv_enabled": {
     "default": "false",
@@ -154,10 +159,16 @@
   },
   "repl": {
     "default": "*",
-    "description": "Has Multi Data Center Replication been enabled for this bucket? Valid options: true (both realtime and full sync), false (this bucket will not be replicated), 'fullsync' (only full sync replication), 'realtime' (only realtime replication).",
+    "description": "Has Multi Data Center Replication been enabled for this bucket?",
     "editable": true,
     "json_schema_type": "boolean|string",
-    "name": "Per-Bucket MDC Replication"
+    "name": "Per-Bucket MDC Replication",
+    "valid_options": [
+      [true, "Both Realtime and Fullsync"],
+      [false, "Not replicated"],
+      ["fullsync", "Fullsync Only"],
+      ["realtime", "Realtime Only"]
+    ]
   },
   "rw": {
     "default": "quorum",
