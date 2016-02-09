@@ -1,6 +1,5 @@
 # riak-help-json
-JSON files describing riak stats, config settings and bucket properties (for
-help tips and graphing usage).
+ES6 Modules that return a single object. Each object provides various information (riak stats, config settings, bucket properties, etc.)
 
 ## Contents
 
@@ -10,10 +9,10 @@ help tips and graphing usage).
 
 ## Riak Stats Help
 
-The **[riak_status.json](riak_status.json)** file contains a hashmap (JSON
+The **[riak_status.js](riak_status.js)** file contains a hashmap (JS
 object) of some 400-plus Riak stats, in the following format:
 
-```json
+```js
 {
   "node_put_fsm_time_median": {
       "category": "latency",
@@ -242,10 +241,10 @@ grep -rnf undocumented.txt ../basho_docs/ --exclude ../basho_docs/.git/* --inclu
 
 ## Bucket Properties Help
 
-The **[bucket_props.json](bucket_props.json)** file contains a hashmap (JSON
+The **[bucket_props.js](bucket_props.js)** file contains a hashmap (JS
 object) of bucket and bucket type properties, in the following format:
 
-```json
+```js
 {
     "active": {
         "default": true,
@@ -296,7 +295,7 @@ such as [Explorer](https://github.com/basho-labs/riak-explorer-gui).
 
 For example:
 
-```json
+```js
 {
     "repl": {
         "default": "*",
@@ -315,11 +314,11 @@ For example:
 ```
 
 ## Riak Config Help
-The **[riak_config.json](riak_config.json)** file contains a hashmap (JSON
+The **[riak_config.js](riak_config.js)** file contains a hashmap (JS
 object) of Riak Effective Config properties (the results of
 `riak config effective`, for example), in the following format:
 
-```json
+```js
 {
     "anti_entropy": {
         "default": "active",

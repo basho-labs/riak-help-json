@@ -1,4 +1,4 @@
-{
+let BucketPropsHelp = {
   "active": {
     "default": true,
     "description": "Has this bucket type been activated?",
@@ -219,4 +219,6 @@
     "json_schema_type": "integer",
     "name": "Young VClock Pruning"
   }
-}
+};
+
+export default BucketPropsHelp;
