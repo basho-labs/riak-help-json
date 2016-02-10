@@ -1,0 +1,18 @@
+{
+  "name": "riak-help-json",
+  "description": "JSON files describing riak stats, config settings and bucket properties (for help tips and other automated help)",
+  "main": "none",
+  "authors": [
+    "Dmitri Zagidulin"
+  ],
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/basho-labs/riak-help-json",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
